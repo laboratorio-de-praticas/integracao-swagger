@@ -1,0 +1,76 @@
+html {
+    box-sizing: border-box;
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    background: #fafafa;
+}
+
+header {
+    max-width: 100%;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: aliceblue;
+    border-bottom: 10px solid #B30000;
+}
+
+ header > .container {
+    max-width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.container > nav > a {
+    text-decoration: none;
+    color: #B00D15;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    padding: 40px;
+}
+
+#logo-fatec {
+    width: 8%;
+    height: auto;
+}
+
+@media (max-width: 1200px) {
+    .container > nav > a {
+        font-size: 16px;
+    }
+}
+
+footer {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #B00D15;
+}
+
+footer > .container {
+    max-width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#logos-footer {
+    width: 18%;
+    height: auto;
+}
