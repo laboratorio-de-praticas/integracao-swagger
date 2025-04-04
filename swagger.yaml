@@ -1,0 +1,74 @@
+openapi: 3.0.0
+info:
+  title: Documentação Centralizada das APIs
+  description: Esta API documenta todas as APIs do sistema em um único Swagger.
+  version: 1.0.0
+
+servers:
+  - url: http://api1.seusistema.com
+    description: API 1 - Autenticação
+  - url: http://api2.seusistema.com
+    description: API 2 - Vitrine
+  - url: http://api3.seusistema.com
+    description: API 3 - Eventos
+
+paths:
+  /v1/auth/login:
+    post:
+      summary: Faz login no sistema
+      tags:
+        - Autenticação
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "user@example.com"
+                senha:
+                  type: string
+                  example: "senha123"
+      responses:
+        "200":
+          description: Login bem-sucedido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUz..."
+
+  /v1/vitrine:
+    get:
+      summary: Lista os representantes
+      tags:
+        - Vitrine
+      responses:
+        "200":
+          description: Lista de representantes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Representante"
+
+components:
+  schemas:
+    Representante:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "12345"
+        nome:
+          type: string
+          example: "João Silva"
+        cargo:
+          type: string
+          example: "Presidente da turma"
