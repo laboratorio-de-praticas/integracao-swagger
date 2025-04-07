@@ -5,19 +5,26 @@ info:
   version: 1.0.0
 
 servers:
-  - url: http://api1.seusistema.com
-    description: API 1 - Autenticação
-  - url: http://api2.seusistema.com
-    description: API 2 - Vitrine
-  - url: http://api3.seusistema.com
-    description: API 3 - Eventos
+  - url: http://api-auth.sistema.com
+    description: API - Autenticação e Segurança
+  - url: http://api-cms.sistema.com
+    description: API - CMS
+  - url: http://api-vitrine.sistema.com
+    description: API - Vitrine
+  - url: http://api-votacao.sistema.com
+    description: API - Votação
+  - url: http://api-dash.sistema.com
+    description: API - Dash e Reports
 
+
+# Seções
 paths:
+  # Autenticação e Segurança
   /v1/auth/login:
     post:
       summary: Faz login no sistema
       tags:
-        - Autenticação
+        - Autenticação e Segurança
       requestBody:
         required: true
         content:
@@ -43,9 +50,10 @@ paths:
                     type: string
                     example: "eyJhbGciOiJIUz..."
 
+  # Vitrine
   /v1/vitrine:
     get:
-      summary: Lista os representantes
+      summary: Lista os representantes disponíveis na vitrine
       tags:
         - Vitrine
       responses:
@@ -58,6 +66,55 @@ paths:
                 items:
                   $ref: "#/components/schemas/Representante"
 
+  # CMS
+  /v1/cms/paginas:
+    get:
+      summary: Lista todas as páginas do CMS
+      tags:
+        - CMS
+      responses:
+        "200":
+          description: Lista de páginas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PaginaCMS"
+
+  # Dash e Reports
+  /v1/dashboards:
+    get:
+      summary: Lista todos os dashboards disponíveis
+      tags:
+        - Dash e Reports
+      responses:
+        "200":
+          description: Lista de dashboards
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Dashboard"
+
+  # Votação
+  /v1/votacao/eleicoes:
+    get:
+      summary: Lista eleições ativas
+      tags:
+        - Votação
+      responses:
+        "200":
+          description: Lista de eleições
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Eleicao"
+
+# Exemplos de Schemas
 components:
   schemas:
     Representante:
@@ -72,3 +129,44 @@ components:
         cargo:
           type: string
           example: "Presidente da turma"
+
+    PaginaCMS:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "abc123"
+        titulo:
+          type: string
+          example: "Página Inicial"
+        conteudo:
+          type: string
+          example: "<p>Bem-vindo ao site!</p>"
+
+    Dashboard:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "dash01"
+        titulo:
+          type: string
+          example: "Dashboard de Acessos"
+        criado_em:
+          type: string
+          format: date-time
+          example: "2025-01-01T12:00:00Z"
+
+    Eleicao:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "el123"
+        titulo:
+          type: string
+          example: "Eleição para representante"
+        status:
+          type: string
+          enum: [ativa, encerrada, futura]
+          example: "ativa"
