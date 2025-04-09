@@ -16,6 +16,15 @@ servers:
   - url: http://api-dash.sistema.com
     description: API - Dash e Reports
 
+tags:
+  - name: CMS
+    description: Listagem dos endpoints - API CMS
+  - name: CMS - Candidatos
+    description: Endpoints dos candidatos
+  - name: CMS - Auth
+    description: Login para obter o Token JWT
+  - name: CMS - Produtos
+    description: Endpoints dos produtos
 
 # Seções
 paths:
@@ -82,6 +91,650 @@ paths:
                 items:
                   $ref: "#/components/schemas/PaginaCMS"
 
+# CMS - Candidatos
+  /api/Candidatos/Create:
+    post:
+      summary: Cria um novo candidato
+      tags:
+        - CMS - Candidatos
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                dados:
+                  type: string
+                  description: JSON com os dados do candidato
+                  example: |
+                    {
+                      "ra": "123456789",
+                      "nome": "João Silva",
+                      "email_institucional": "joao.silva@fatec.sp.gov.br",
+                      "telefone": "(11) 99999-9999",
+                      "senha": "senha123",
+                      "turma_atual": "DSM4",
+                      "curso": "Desenvolvimento de Software Multiplataforma",
+                      "semestre": "4",
+                      "ano_ingresso": "2022",
+                      "deseja_ser_candidato": true,
+                      "link_video": "https://youtube.com/...",
+                      "descricao_campanha": "Minha proposta de campanha..."
+                    }
+                foto:
+                  type: string
+                  format: binary
+                  description: Imagem de perfil (JPG, PNG, GIF ou WEBP - máx - 5MB)
+      responses:
+        "201":
+          description: Candidato criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Candidato"
+        "400":
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Campo 'ra' está ausente"
+
+  /api/Candidatos/Get_all:
+    get:
+      summary: Lista todos os candidatos cadastrados
+      description: Retorna uma lista com todos os candidatos e seus respectivos dados de cadastro.
+      tags:
+        - CMS - Candidatos
+      responses:
+        "200":
+          description: Lista de candidatos retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Candidato"
+              example:
+                success: true
+                data:
+                  - id: 1
+                    ra: "123456789"
+                    nome: "João Silva"
+                    email_institucional: "joao.silva@fatec.sp.gov.br"
+                    telefone: "(11) 99999-9999"
+                    turma_atual: "DSM4"
+                    foto_url: "/imgs/candidatos/123456789.jpg"
+                    deseja_ser_candidato: true
+                    link_video: "https://youtube.com/..."
+                    descricao_campanha: "Minha proposta de campanha..."
+                    curso: "Desenvolvimento de Software Multiplataforma"
+                    semestre: "4"
+                    ano_ingresso: "2022"
+                    status_candidatura: "pendente"
+                    created_at: "2024-04-03T10:00:00Z"
+
+  /api/Candidatos/Update:
+   put:
+    summary: Atualiza os dados de um candidato
+    tags:
+      - CMS - Candidatos
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              dados:
+                type: string
+                format: binary
+                description: Objeto JSON com os dados do candidato
+              foto:
+                type: string
+                format: binary
+                description: Imagem do candidato
+    responses:
+      "200":
+        description: Candidato atualizado com sucesso
+        content:
+          application/json:
+            example:
+              success: true
+              message: Candidato atualizado com sucesso
+              data:
+                id: 1
+                ra: "123456789"
+                nome: João Silva Santos
+                email_institucional: joao.silva@fatec.sp.gov.br
+                telefone: "(11) 97777-7777"
+                turma_atual: DSM4
+                foto_url: "/imgs/candidatos/123456789.jpg"
+                deseja_ser_candidato: true
+                link_video: "https://youtube.com/..."
+                descricao_campanha: "Nova proposta de campanha..."
+                curso: Desenvolvimento de Software Multiplataforma
+                semestre: "4"
+                ano_ingresso: "2022"
+                status_candidatura: pendente
+                updated_at: "2024-04-03T12:00:00Z"
+      "400":
+        description: Dados inválidos
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: "Dados inválidos"
+      "404":
+        description: Candidato não encontrado
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: "Candidato com esse ID não existe na base de dados"
+
+  /api/Candidatos/Perm:
+    delete:
+      summary: Excluir permanentemente um candidato
+      description: Remove um candidato do banco de dados de forma definitiva.
+      tags:
+        - CMS - Candidatos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+      responses:
+        "200":
+          description: Candidato excluído com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Candidato excluído permanentemente
+        "400":
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "ID inválido"
+        "500":
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Falha ao excluir Candidato"
+
+# CMS - AUTH
+  /api/auth/login:
+    post:
+      tags:
+        - CMS - Auth
+      summary: Login para obter token JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: admin@fatec.sp.gov.br
+                senha:
+                  type: string
+                  example: senha123
+      responses:
+        '200':
+          description: Token JWT gerado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        '401':
+          description: Credenciais inválidas
+          content:
+            application/json:
+               schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Dados incorretos"
+
+# CMS - Projetos
+  /api/Projetos/Create:
+    post:
+      tags:
+        - CMS - Produtos
+      summary: Criar novo projeto
+      description: |
+        🔐 **Rota protegida. Requer autenticação com JWT.**
+
+        Para acessar esta rota, clique em **Authorize** no topo da página e insira o token JWT no formato:
+
+        ```
+        Authorization: Bearer seu_token_jwt_aqui
+        ```
+
+        Após autorizado, esta rota poderá ser testada normalmente.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                dados:
+                  type: string
+                  format: string
+                  description: Objeto JSON com os dados do projeto (stringificado)
+                  example: '{"nome_Projeto": "Sistema de Gestão Escolar", "nome_equipe": "Equipe Alpha", ...}'
+                imagem_capa:
+                  type: string
+                  format: binary
+                  description: Imagem de capa (JPG, PNG, GIF ou WEBP - máx. 5MB)
+                imagens_projeto:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: Imagens adicionais do projeto
+      responses:
+        '201':
+          description: Projeto criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjetoCriadoResponse'
+        '400':
+          description: Erro de validação ou projeto já existente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Token JWT ausente ou inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/Projetos/Get_all:
+    get:
+      tags:
+      - CMS - Produtos
+      summary: Listar todos os projetos
+      description: |
+        🔐 **Rota protegida. Requer autenticação com JWT.**
+
+        Para acessar esta rota, clique em **Authorize** no topo da página e insira o token JWT no formato:
+
+        ```
+        Authorization: Bearer seu_token_jwt_aqui
+        ```
+
+        Após autorizado, esta rota poderá ser testada normalmente.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de projetos recuperada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProjetoCriadoResponse'
+        '401':
+          description: Token JWT ausente ou inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/Projetos/Get_active:
+    get:
+      tags:
+      - CMS - Produtos
+      summary: Listar projetos ativos
+      description: |
+        🔓 **Rota pública. Não requer autenticação.**
+
+        Retorna todos os projetos com status `"ativo"`, filtrando automaticamente os inativos ou arquivados.
+      responses:
+        '200':
+          description: Lista de projetos ativos recuperada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProjetoAtivo'
+
+  /api/Projetos/Get_id?id=1:
+    get:
+      tags:
+        - CMS - Produtos
+      summary: Buscar projeto por ID
+      description: |
+        🔐 **Rota protegida. Requer autenticação com JWT.**
+
+        Para acessar esta rota, clique em **Authorize** no topo da página e insira o token JWT no formato:
+
+        ```
+        Authorization: Bearer seu_token_jwt_aqui
+        ```
+
+        Esta rota retorna os detalhes completos de um projeto específico com base no ID fornecido como query param.
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID do projeto a ser recuperado
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Projeto encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    $ref: '#/components/schemas/ProjetoCriadoResponse'
+        '404':
+          description: Projeto não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Token JWT ausente ou inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/Projetos/Get_turma?turma=DSM4:
+    get:
+      tags:
+        - CMS - Produtos
+      summary: Buscar projetos por turma
+      description: |
+        Retorna todos os projetos associados a uma determinada turma.
+
+        🔓 **Rota pública.**
+      parameters:
+        - in: query
+          name: turma
+          schema:
+            type: string
+          required: true
+          description: Nome da turma (ex. DSM4)
+      responses:
+        '200':
+          description: Lista de projetos da turma encontrada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProjetoAtivo'
+        '404':
+          description: Nenhum projeto encontrado para a turma informada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/Projetos/Update_Project:
+    put:
+      tags:
+        - CMS - Produtos
+      summary: Atualizar um projeto existente
+      description: |
+        Atualiza os dados de um projeto já existente.  
+
+        O envio deve ser feito no formato `multipart/form-data`, incluindo os arquivos de imagem (se necessário).
+
+        🔐 Requer autenticação via token **Bearer**.
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                dados:
+                  type: string
+                  format: string
+                  description: Objeto JSON contendo os dados do projeto (como string).
+                  example: |
+                    {
+                      "id": 1,
+                      "nome_Projeto": "Sistema de Gestão Escolar 2.0",
+                      "nome_equipe": "Equipe Alpha",
+                      "descricao": "Sistema aprimorado para gerenciamento de atividades escolares",
+                      "turma": "DSM4",
+                      "tlr": "1",
+                      "cea": "1",
+                      "area_atuacao": "Educação",
+                      "ods_ids": [1, 2, 3],
+                      "linha_extensao_ids": [1, 2],
+                      "area_tematica_ids": [1],
+                      "integrantes": [
+                        {
+                          "nome": "João Silva",
+                          "funcao": "Desenvolvedor Full Stack"
+                        },
+                        {
+                          "nome": "Maria Santos",
+                          "funcao": "Desenvolvedora Frontend"
+                        }
+                      ]
+                    }
+                imagem_capa:
+                  type: string
+                  format: binary
+                  description: Nova imagem de capa do projeto (opcional).
+                imagens_projeto:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: Novas imagens do projeto (opcional).
+
+      responses:
+        '200':
+          description: Projeto atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Projeto atualizado com sucesso
+                  data:
+                    $ref: '#/components/schemas/ProjetoCriadoResponse'
+        '400':
+          description: Requisição inválida (dados ausentes ou incorretos)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Token ausente ou inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Projeto não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Projeto inexistente"
+                
+  /api/Projetos/Disable:
+    put:
+      tags:
+        - CMS - Produtos
+      summary: Desativar um projeto
+      description: |
+        Desativa logicamente um projeto existente (muda o status para `inativo`).
+
+        🔐 Requer autenticação via token **Bearer**.
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                  description: ID do projeto a ser desativado
+
+      responses:
+        '200':
+          description: Projeto desativado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Projeto desativado com sucesso
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      status:
+                        type: string
+                        example: inativo
+                      updated_at:
+                        type: string
+                        format: date-time
+                        example: "2024-04-03T13:00:00Z"
+
+        '400':
+          description: Requisição inválida (por exemplo, ID ausente ou malformado)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        '401':
+          description: Token ausente ou inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+        '404':
+          description: Projeto não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Projeto inexistente"
+
+
   # Dash e Reports
   /v1/dashboards:
     get:
@@ -116,6 +769,12 @@ paths:
 
 # Exemplos de Schemas
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   schemas:
     Representante:
       type: object
@@ -170,3 +829,214 @@ components:
           type: string
           enum: [ativa, encerrada, futura]
           example: "ativa"
+
+    Candidato:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        ra:
+          type: string
+          example: "123456789"
+        nome:
+          type: string
+          example: "João Silva"
+        email_institucional:
+          type: string
+          example: "joao.silva@fatec.sp.gov.br"
+        telefone:
+          type: string
+          example: "(11) 99999-9999"
+        turma_atual:
+          type: string
+          example: "DSM4"
+        curso:
+          type: string
+          example: "Desenvolvimento de Software Multiplataforma"
+        semestre:
+          type: string
+          example: "4"
+        ano_ingresso:
+          type: string
+          example: "2022"
+        deseja_ser_candidato:
+          type: boolean
+          example: true
+        link_video:
+          type: string
+          example: "https://youtube.com/..."
+        descricao_campanha:
+          type: string
+          example: "Minha proposta de campanha..."
+        foto_url:
+          type: string
+          example: "/imgs/candidatos/123456789.jpg"
+        status_candidatura:
+          type: string
+          example: "pendente"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-04-03T10:00:00Z"
+
+    Integrante:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: João Silva
+        funcao:
+          type: string
+          example: Desenvolvedor Backend
+
+    ODS:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: ODS 1 - Erradicação da Pobreza
+
+    LinhaExtensao:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: Tecnologia e Inovação
+
+    AreaTematica:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: Tecnologia da Informação
+
+    ProjetoCriadoResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: Projeto criado com sucesso
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            nome_Projeto:
+              type: string
+              example: Sistema de Gestão Escolar
+            nome_equipe:
+              type: string
+              example: Equipe Alpha
+            descricao:
+              type: string
+              example: Sistema para gerenciamento de atividades escolares
+            turma:
+              type: string
+              example: DSM4
+            tlr:
+              type: string
+              example: "1"
+            cea:
+              type: string
+              example: "1"
+            area_atuacao:
+              type: string
+              example: Educação
+            imagem_capa:
+              type: string
+              example: /imgs/projetos/capas/123456789.jpg
+            imagens_projeto:
+              type: array
+              items:
+                type: string
+                example: /imgs/projetos/Imagens_Projeto/987654321.jpg
+            ods:
+              type: array
+              items:
+                $ref: '#/components/schemas/ODS'
+            linhas_extensao:
+              type: array
+              items:
+                $ref: '#/components/schemas/LinhaExtensao'
+            areas_tematicas:
+              type: array
+              items:
+                $ref: '#/components/schemas/AreaTematica'
+            integrantes:
+              type: array
+              items:
+                $ref: '#/components/schemas/Integrante'
+            status:
+              type: string
+              example: ativo
+            created_at:
+              type: string
+              format: date-time
+              example: 2024-04-03T10:00:00Z
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Token inválido ou dados ausentes
+
+    ProjetoAtivo:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome_Projeto:
+          type: string
+          example: Sistema de Gestão Escolar
+        nome_equipe:
+          type: string
+          example: Equipe Alpha
+        descricao:
+          type: string
+          example: Sistema para gerenciamento de atividades escolares
+        turma:
+          type: string
+          example: DSM4
+        tlr:
+          type: string
+          example: "1"
+        cea:
+          type: string
+          example: "1"
+        area_atuacao:
+          type: string
+          example: Educação
+        imagem_capa:
+          type: string
+          example: /imgs/projetos/capas/123456789.jpg
+        imagens_projeto:
+          type: array
+          items:
+            type: string
+            example: /imgs/projetos/Imagens_Projeto/987654321.jpg
+        status:
+          type: string
+          example: ativo
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-04-03T10:00:00Z"
