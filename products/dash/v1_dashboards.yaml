@@ -1,0 +1,13 @@
+get:
+  summary: Lista todos os dashboards disponíveis
+  tags:
+    - Dash e Reports
+  responses:
+    "200":
+      description: Lista de dashboards
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../../components/schemas.yaml#/Dashboard"

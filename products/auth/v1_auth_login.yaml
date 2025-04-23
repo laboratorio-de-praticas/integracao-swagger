@@ -1,0 +1,28 @@
+post:
+  summary: Faz login no sistema
+  tags:
+    - Autenticação e Segurança
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+              example: "user@example.com"
+            senha:
+              type: string
+              example: "senha123"
+  responses:
+    "200":
+      description: Login bem-sucedido
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+                example: "eyJhbGciOiJIUz..."

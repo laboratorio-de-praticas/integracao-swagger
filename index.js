@@ -9,6 +9,10 @@ const PORT = 3000;
 // Servindo a pasta "public"
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Servindo a pasta "Products" para que o Swagger encontre os arquivos YAML
+app.use('/products', express.static(path.join(__dirname, 'products')));
+app.use('/components', express.static(path.join(__dirname, 'components')));
+
 // Servindo arquivos do Swagger UI corretamente
 app.use('/swagger-ui', express.static(path.join(__dirname, 'public', 'swagger-ui')));
 

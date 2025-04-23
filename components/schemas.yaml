@@ -1,0 +1,264 @@
+Representante:
+  type: object
+  properties:
+    id:
+      type: string
+      example: "12345"
+    nome:
+      type: string
+      example: "João Silva"
+    cargo:
+      type: string
+      example: "Presidente da turma"
+
+PaginaCMS:
+  type: object
+  properties:
+    id:
+      type: string
+      example: "abc123"
+    titulo:
+      type: string
+      example: "Página Inicial"
+    conteudo:
+      type: string
+      example: "<p>Bem-vindo ao site!</p>"
+
+Dashboard:
+  type: object
+  properties:
+    id:
+      type: string
+      example: "dash01"
+    titulo:
+      type: string
+      example: "Dashboard de Acessos"
+    criado_em:
+      type: string
+      format: date-time
+      example: "2025-01-01T12:00:00Z"
+
+Eleicao:
+  type: object
+  properties:
+    id:
+      type: string
+      example: "el123"
+    titulo:
+      type: string
+      example: "Eleição para representante"
+    status:
+      type: string
+      enum: [ativa, encerrada, futura]
+      example: "ativa"
+
+Candidato:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    ra:
+      type: string
+      example: "123456789"
+    nome:
+      type: string
+      example: "João Silva"
+    email_institucional:
+      type: string
+      example: "joao.silva@fatec.sp.gov.br"
+    telefone:
+      type: string
+      example: "(11) 99999-9999"
+    turma_atual:
+      type: string
+      example: "DSM4"
+    curso:
+      type: string
+      example: "Desenvolvimento de Software Multiplataforma"
+    semestre:
+      type: string
+      example: "4"
+    ano_ingresso:
+      type: string
+      example: "2022"
+    deseja_ser_candidato:
+      type: boolean
+      example: true
+    link_video:
+      type: string
+      example: "https://youtube.com/..."
+    descricao_campanha:
+      type: string
+      example: "Minha proposta de campanha..."
+    foto_url:
+      type: string
+      example: "/imgs/candidatos/123456789.jpg"
+    status_candidatura:
+      type: string
+      example: "pendente"
+    created_at:
+      type: string
+      format: date-time
+      example: "2024-04-03T10:00:00Z"
+
+Integrante:
+  type: object
+  properties:
+    nome:
+      type: string
+      example: João Silva
+    funcao:
+      type: string
+      example: Desenvolvedor Backend
+
+ODS:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    nome:
+      type: string
+      example: ODS 1 - Erradicação da Pobreza
+
+LinhaExtensao:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    nome:
+      type: string
+      example: Tecnologia e Inovação
+
+AreaTematica:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    nome:
+      type: string
+      example: Tecnologia da Informação
+
+ProjetoCriadoResponse:
+  type: object
+  properties:
+    success:
+      type: boolean
+      example: true
+    message:
+      type: string
+      example: Projeto criado com sucesso
+    data:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome_Projeto:
+          type: string
+          example: Sistema de Gestão Escolar
+        nome_equipe:
+          type: string
+          example: Equipe Alpha
+        descricao:
+          type: string
+          example: Sistema para gerenciamento de atividades escolares
+        turma:
+          type: string
+          example: DSM4
+        tlr:
+          type: string
+          example: "1"
+        cea:
+          type: string
+          example: "1"
+        area_atuacao:
+          type: string
+          example: Educação
+        imagem_capa:
+          type: string
+          example: /imgs/projetos/capas/123456789.jpg
+        imagens_projeto:
+          type: array
+          items:
+            type: string
+            example: /imgs/projetos/Imagens_Projeto/987654321.jpg
+        ods:
+          type: array
+          items:
+            $ref: '#/components/schemas/ODS'
+        linhas_extensao:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinhaExtensao'
+        areas_tematicas:
+          type: array
+          items:
+            $ref: '#/components/schemas/AreaTematica'
+        integrantes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Integrante'
+        status:
+          type: string
+          example: ativo
+        created_at:
+          type: string
+          format: date-time
+          example: 2024-04-03T10:00:00Z
+
+ErrorResponse:
+  type: object
+  properties:
+    success:
+      type: boolean
+      example: false
+    message:
+      type: string
+      example: Token inválido ou dados ausentes
+
+ProjetoAtivo:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    nome_Projeto:
+      type: string
+      example: Sistema de Gestão Escolar
+    nome_equipe:
+      type: string
+      example: Equipe Alpha
+    descricao:
+      type: string
+      example: Sistema para gerenciamento de atividades escolares
+    turma:
+      type: string
+      example: DSM4
+    tlr:
+      type: string
+      example: "1"
+    cea:
+      type: string
+      example: "1"
+    area_atuacao:
+      type: string
+      example: Educação
+    imagem_capa:
+      type: string
+      example: /imgs/projetos/capas/123456789.jpg
+    imagens_projeto:
+      type: array
+      items:
+        type: string
+        example: /imgs/projetos/Imagens_Projeto/987654321.jpg
+    status:
+      type: string
+      example: ativo
+    created_at:
+      type: string
+      format: date-time
+      example: "2024-04-03T10:00:00Z"
