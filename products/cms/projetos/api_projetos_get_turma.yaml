@@ -1,0 +1,36 @@
+get:
+  tags:
+    - CMS - Produtos
+  summary: Buscar projetos por turma
+  description: |
+    Retorna todos os projetos associados a uma determinada turma.
+
+    🔓 **Rota pública.**
+  parameters:
+    - in: query
+      name: turma
+      schema:
+        type: string
+      required: true
+      description: Nome da turma (ex. DSM4)
+  responses:
+    '200':
+      description: Lista de projetos da turma encontrada com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              data:
+                type: array
+                items:
+                  $ref: '../../../components/schemas.yaml#/ProjetoAtivo'
+    '404':
+      description: Nenhum projeto encontrado para a turma informada
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas.yaml#/ErrorResponse'

@@ -1,0 +1,49 @@
+delete:
+  summary: Excluir permanentemente um candidato
+  description: Remove um candidato do banco de dados de forma definitiva.
+  tags:
+    - CMS - Candidatos
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+  responses:
+    "200":
+      description: Candidato excluído com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              message:
+                type: string
+                example: Candidato excluído permanentemente
+    "400":
+      description: Requisição inválida
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "ID inválido"
+    "500":
+      description: Erro interno no servidor
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Falha ao excluir Candidato"

@@ -1,0 +1,57 @@
+post:
+  tags:
+    - CMS - Produtos
+  summary: Criar novo projeto
+  description: |
+    🔐 **Rota protegida. Requer autenticação com JWT.**
+
+    Para acessar esta rota, clique em **Authorize** no topo da página e insira o token JWT no formato:
+
+    ```
+    Authorization: Bearer seu_token_jwt_aqui
+    ```
+
+    Após autorizado, esta rota poderá ser testada normalmente.
+  security:
+    - bearerAuth: []
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            dados:
+              type: string
+              format: string
+              description: Objeto JSON com os dados do projeto (stringificado)
+              example: '{"nome_Projeto": "Sistema de Gestão Escolar", "nome_equipe": "Equipe Alpha", ...}'
+            imagem_capa:
+              type: string
+              format: binary
+              description: Imagem de capa (JPG, PNG, GIF ou WEBP - máx. 5MB)
+            imagens_projeto:
+              type: array
+              items:
+                type: string
+                format: binary
+              description: Imagens adicionais do projeto
+  responses:
+    '201':
+      description: Projeto criado com sucesso
+      content:
+        application/json:
+          schema:
+            $ref: "../../../components/schemas.yaml#/ProjetoCriadoResponse"
+    '400':
+      description: Erro de validação ou projeto já existente
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas.yaml#/ErrorResponse'
+    '401':
+      description: Token JWT ausente ou inválido
+      content:
+        application/json:
+          schema:
+            $ref: "../../../components/schemas.yaml#/ErrorResponse"

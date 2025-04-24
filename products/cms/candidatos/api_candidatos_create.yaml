@@ -1,0 +1,50 @@
+post:
+    summary: Cria um novo candidato
+    tags:
+      - CMS - Candidatos
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              dados:
+                type: string
+                description: JSON com os dados do candidato
+                example: |
+                  {
+                    "ra": "123456789",
+                    "nome": "João Silva",
+                    "email_institucional": "joao.silva@fatec.sp.gov.br",
+                    "telefone": "(11) 99999-9999",
+                    "senha": "senha123",
+                    "turma_atual": "DSM4",
+                    "curso": "Desenvolvimento de Software Multiplataforma",
+                    "semestre": "4",
+                    "ano_ingresso": "2022",
+                    "deseja_ser_candidato": true,
+                    "link_video": "https://youtube.com/...",
+                    "descricao_campanha": "Minha proposta de campanha..."
+                  }
+              foto:
+                type: string
+                format: binary
+                description: Imagem de perfil (JPG, PNG, GIF ou WEBP - máx - 5MB)
+    responses:
+      "201":
+        description: Candidato criado com sucesso
+        content:
+          application/json:
+            schema:
+              $ref: "../../../components/schemas.yaml#/Candidato"
+      "400":
+        description: Dados inválidos
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: "Campo 'ra' está ausente"

@@ -1,0 +1,63 @@
+put:
+  summary: Atualiza os dados de um candidato
+  tags:
+    - CMS - Candidatos
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            dados:
+              type: string
+              format: binary
+              description: Objeto JSON com os dados do candidato
+            foto:
+              type: string
+              format: binary
+              description: Imagem do candidato
+  responses:
+    "200":
+      description: Candidato atualizado com sucesso
+      content:
+        application/json:
+          example:
+            success: true
+            message: Candidato atualizado com sucesso
+            data:
+              id: 1
+              ra: "123456789"
+              nome: João Silva Santos
+              email_institucional: joao.silva@fatec.sp.gov.br
+              telefone: "(11) 97777-7777"
+              turma_atual: DSM4
+              foto_url: "/imgs/candidatos/123456789.jpg"
+              deseja_ser_candidato: true
+              link_video: "https://youtube.com/..."
+              descricao_campanha: "Nova proposta de campanha..."
+              curso: Desenvolvimento de Software Multiplataforma
+              semestre: "4"
+              ano_ingresso: "2022"
+              status_candidatura: pendente
+              updated_at: "2024-04-03T12:00:00Z"
+    "400":
+      description: Dados inválidos
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Dados inválidos"
+    "404":
+      description: Candidato não encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Candidato com esse ID não existe na base de dados"

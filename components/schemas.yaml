@@ -189,25 +189,25 @@ ProjetoCriadoResponse:
         ods:
           type: array
           items:
-            $ref: '#/components/schemas/ODS'
+            $ref: '#ODS'
         linhas_extensao:
           type: array
           items:
-            $ref: '#/components/schemas/LinhaExtensao'
+            $ref: '#LinhaExtensao'
         areas_tematicas:
           type: array
           items:
-            $ref: '#/components/schemas/AreaTematica'
+            $ref: '#AreaTematica'
         integrantes:
           type: array
           items:
-            $ref: '#/components/schemas/Integrante'
+            $ref: '#Integrante'
         status:
           type: string
           example: ativo
         created_at:
           type: string
-          format: date-time
+          format: date
           example: 2024-04-03T10:00:00Z
 
 ErrorResponse:

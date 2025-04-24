@@ -1,0 +1,23 @@
+get:
+  tags:
+  - CMS - Produtos
+  summary: Listar projetos ativos
+  description: |
+    🔓 **Rota pública. Não requer autenticação.**
+
+    Retorna todos os projetos com status `"ativo"`, filtrando automaticamente os inativos ou arquivados.
+  responses:
+    '200':
+      description: Lista de projetos ativos recuperada com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              data:
+                type: array
+                items:
+                  $ref: '../../../components/schemas.yaml#/ProjetoAtivo'

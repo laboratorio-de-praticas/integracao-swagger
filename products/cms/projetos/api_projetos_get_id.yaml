@@ -1,0 +1,48 @@
+get:
+  tags:
+    - CMS - Produtos
+  summary: Buscar projeto por ID
+  description: |
+    🔐 **Rota protegida. Requer autenticação com JWT.**
+
+    Para acessar esta rota, clique em **Authorize** no topo da página e insira o token JWT no formato:
+
+    ```
+    Authorization: Bearer seu_token_jwt_aqui
+    ```
+
+    Esta rota retorna os detalhes completos de um projeto específico com base no ID fornecido como query param.
+  parameters:
+    - in: query
+      name: id
+      schema:
+        type: integer
+      required: true
+      description: ID do projeto a ser recuperado
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: Projeto encontrado com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              data:
+                $ref: '../../../components/schemas.yaml#/ProjetoCriadoResponse'
+    '404':
+      description: Projeto não encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas.yaml#/ErrorResponse'
+    '401':
+      description: Token JWT ausente ou inválido
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas.yaml#/ErrorResponse'

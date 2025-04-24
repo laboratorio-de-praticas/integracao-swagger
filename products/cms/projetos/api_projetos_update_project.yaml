@@ -1,0 +1,97 @@
+put:
+  tags:
+    - CMS - Produtos
+  summary: Atualizar um projeto existente
+  description: |
+    Atualiza os dados de um projeto já existente.  
+
+    O envio deve ser feito no formato `multipart/form-data`, incluindo os arquivos de imagem (se necessário).
+
+    🔐 Requer autenticação via token **Bearer**.
+  security:
+    - bearerAuth: []
+
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            dados:
+              type: string
+              format: string
+              description: Objeto JSON contendo os dados do projeto (como string).
+              example: |
+                {
+                  "id": 1,
+                  "nome_Projeto": "Sistema de Gestão Escolar 2.0",
+                  "nome_equipe": "Equipe Alpha",
+                  "descricao": "Sistema aprimorado para gerenciamento de atividades escolares",
+                  "turma": "DSM4",
+                  "tlr": "1",
+                  "cea": "1",
+                  "area_atuacao": "Educação",
+                  "ods_ids": [1, 2, 3],
+                  "linha_extensao_ids": [1, 2],
+                  "area_tematica_ids": [1],
+                  "integrantes": [
+                    {
+                      "nome": "João Silva",
+                      "funcao": "Desenvolvedor Full Stack"
+                    },
+                    {
+                      "nome": "Maria Santos",
+                      "funcao": "Desenvolvedora Frontend"
+                    }
+                  ]
+                }
+            imagem_capa:
+              type: string
+              format: binary
+              description: Nova imagem de capa do projeto (opcional).
+            imagens_projeto:
+              type: array
+              items:
+                type: string
+                format: binary
+              description: Novas imagens do projeto (opcional).
+
+  responses:
+    '200':
+      description: Projeto atualizado com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              message:
+                type: string
+                example: Projeto atualizado com sucesso
+              data:
+                $ref: '../../../components/schemas.yaml#/ProjetoCriadoResponse'
+    '400':
+      description: Requisição inválida (dados ausentes ou incorretos)
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas.yaml#/ErrorResponse'
+    '401':
+      description: Token ausente ou inválido
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas.yaml#/ErrorResponse'
+    '404':
+      description: Projeto não encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Projeto inexistente"

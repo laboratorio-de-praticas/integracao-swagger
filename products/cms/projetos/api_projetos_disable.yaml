@@ -1,0 +1,77 @@
+put:
+  tags:
+    - CMS - Produtos
+  summary: Desativar um projeto
+  description: |
+    Desativa logicamente um projeto existente (muda o status para `inativo`).
+
+    🔐 Requer autenticação via token **Bearer**.
+  security:
+    - bearerAuth: []
+
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - id
+          properties:
+            id:
+              type: integer
+              example: 1
+              description: ID do projeto a ser desativado
+
+  responses:
+    '200':
+      description: Projeto desativado com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              message:
+                type: string
+                example: Projeto desativado com sucesso
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  status:
+                    type: string
+                    example: inativo
+                  updated_at:
+                    type: string
+                    format: date-time
+                    example: "2024-04-03T13:00:00Z"
+
+    '400':
+      description: Requisição inválida (por exemplo, ID ausente ou malformado)
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas.yaml#/ErrorResponse'
+
+    '401':
+      description: Token ausente ou inválido
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas.yaml#/ErrorResponse'
+
+    '404':
+      description: Projeto não encontrado
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Projeto inexistente"
