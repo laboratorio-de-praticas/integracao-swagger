@@ -7,19 +7,51 @@ Este projeto tem como objetivo apresentar a documentação de uma API utilizando
 ## 📁 Estrutura do Projeto
 
 ```text
-├── public/
-│   ├── imagens/                  # Imagens utilizadas na personalização (ex: logos)
-│   ├── index.html                # Página HTML com header, footer e Swagger embutido
-│   ├── index.css                 # Estilos personalizados
-│   ├── swagger-initializer.js   # Script de inicialização do Swagger UI
-│   └── swagger-ui/              # Arquivos do Swagger UI (baixados de CDN)
-│       ├── swagger-ui.css
-│       ├── swagger-ui-bundle.js
-│       └── swagger-ui-standalone-preset.js
-├── swagger.yaml                 # Arquivo de especificação da API (OpenAPI)
-├── index.js                     # Servidor Express que serve a documentação
-├── package.json
-└── .gitignore
+ ┣ 📂components
+ ┃ ┗ 📜schemas.yaml
+ ┣ 📂products
+ ┃ ┣ 📂auth
+ ┃ ┃ ┗ 📜v1_auth_login.yaml
+ ┃ ┣ 📂cms
+ ┃ ┃ ┣ 📂auth
+ ┃ ┃ ┃ ┗ 📜api_auth_login.yaml
+ ┃ ┃ ┣ 📂candidatos
+ ┃ ┃ ┃ ┣ 📜api_candidatos_create.yaml
+ ┃ ┃ ┃ ┣ 📜api_candidatos_get_all.yaml
+ ┃ ┃ ┃ ┣ 📜api_candidatos_perm.yaml
+ ┃ ┃ ┃ ┗ 📜api_candidatos_update.yaml
+ ┃ ┃ ┗ 📂projetos
+ ┃ ┃ ┃ ┣ 📜api_projetos_create.yaml
+ ┃ ┃ ┃ ┣ 📜api_projetos_disable.yaml
+ ┃ ┃ ┃ ┣ 📜api_projetos_get_active.yaml
+ ┃ ┃ ┃ ┣ 📜api_projetos_get_all.yaml
+ ┃ ┃ ┃ ┣ 📜api_projetos_get_id.yaml
+ ┃ ┃ ┃ ┣ 📜api_projetos_get_turma.yaml
+ ┃ ┃ ┃ ┗ 📜api_projetos_update_project.yaml
+ ┃ ┣ 📂dash
+ ┃ ┃ ┗ 📜v1_dashboards.yaml
+ ┃ ┣ 📂vitrine
+ ┃ ┃ ┗ 📜v1_vitrine.yaml
+ ┃ ┗ 📂votacao
+ ┃ ┃ ┗ 📜v1_votacao_eleicoes.yaml
+ ┣ 📂public
+ ┃ ┣ 📂imagens
+ ┃ ┃ ┣ 📜logos-rodapé.png
+ ┃ ┃ ┗ 📜logo_fatec.png
+ ┃ ┣ 📂swagger-ui
+ ┃ ┃ ┣ 📜swagger-ui-bundle.js
+ ┃ ┃ ┣ 📜swagger-ui-standalone-preset.js
+ ┃ ┃ ┗ 📜swagger-ui.css
+ ┃ ┣ 📜index.css
+ ┃ ┣ 📜index.html
+ ┃ ┗ 📜swagger-initializer.js
+ ┣ 📜.gitignore
+ ┣ 📜Dockerfile
+ ┣ 📜index.js
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜README.md
+ ┗ 📜swagger.yaml
 ```
 
 ---
