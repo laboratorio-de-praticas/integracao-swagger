@@ -1,0 +1,11 @@
+get:
+  operationId: AppController_getProfile_v1
+  parameters: []
+  responses:
+    "200":
+      description: Dados retornados com sucesso.
+  security:
+    - bearer: []
+  summary: Retorna informações do usuário com base no token.
+  tags:
+    - Autenticação - Login

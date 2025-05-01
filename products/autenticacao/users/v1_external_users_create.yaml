@@ -1,0 +1,20 @@
+post:
+  operationId: ExternalUsersController_createExternalUser_v1
+  parameters: []
+  requestBody:
+    required: true
+    description: Dados necessários para realizar o cadastro do visitante.
+    content:
+      application/json:
+        schema:
+          $ref: "../../../components/schemas.yaml#/ExternalUserCreateRequestDto"
+  responses:
+    "201":
+      description: Cadastro do visitante realizado com sucesso.
+      content:
+        application/json:
+          schema:
+            $ref: "../../../components/schemas.yaml#/ExternalUserCreateResponseDto"
+  summary: Criação do cadastro temporario do visitante.
+  tags:
+    - Autenticação - Usuário Externo

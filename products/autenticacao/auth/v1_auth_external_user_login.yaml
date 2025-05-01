@@ -1,0 +1,20 @@
+post:
+  operationId: AppController_externalLogin_v1
+  parameters: []
+  requestBody:
+    required: true
+    description: Dados necessários para realizar o cadastro do visitante.
+    content:
+      application/json:
+        schema:
+          $ref: "../../../components/schemas.yaml#/ExternalUserLoginRequestDto"
+  responses:
+    "200":
+      description: Cadastro do visitante realizado com sucesso.
+      content:
+        application/json:
+          schema:
+            $ref: "../../../components/schemas.yaml#/UserLoginResponseDto"
+  summary: Valida e retorna o token do visitante.
+  tags:
+    - Autenticação - Login

@@ -1,0 +1,28 @@
+put:
+  operationId: UsersController_updateUser_v1
+  parameters:
+    - name: id
+      required: true
+      in: path
+      description: ID do usuário
+      schema:
+        type: number
+  requestBody:
+    required: true
+    description: Dados para atualização do usuário.
+    content:
+      application/json:
+        schema:
+          $ref: "../../../components/schemas.yaml#/UserUpdateRequestDto"
+  responses:
+    "200":
+      description: Usuário atualizado com sucesso.
+      content:
+        application/json:
+          schema:
+            $ref: "../../../components/schemas.yaml#/UserUpdateResponseDto"
+  security:
+    - bearer: []
+  summary: Atualizar usuário.
+  tags:
+    - Autenticação - Usuário

@@ -1,0 +1,22 @@
+post:
+  operationId: UsersController_createUser_v1
+  parameters: []
+  requestBody:
+    required: true
+    description: Dados necessários para realizar o cadastro do usuário.
+    content:
+      application/json:
+        schema:
+          $ref: "../../../components/schemas.yaml#/UserCreateRequestDto"
+  responses:
+    "201":
+      description: Usuário criado com sucesso.
+      content:
+        application/json:
+          schema:
+            $ref: "../../../components/schemas.yaml#/UserCreateResponseDto"
+  security:
+    - bearer: []
+  summary: Criação do usuário.
+  tags:
+    - Autenticação - Usuário

@@ -1,0 +1,11 @@
+get:
+  operationId: UsersController_getRole_v1
+  parameters: []
+  responses:
+    "200":
+      description: Role do usuário retornado com sucesso.
+  security:
+    - bearer: []
+  summary: Retorna a role do usuário.
+  tags:
+    - Autenticação - Usuário

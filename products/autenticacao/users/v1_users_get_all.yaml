@@ -1,0 +1,11 @@
+get:
+  operationId: UsersController_findAll_v1
+  parameters: []
+  responses:
+    "200":
+      description: Lista de usuários.
+  security:
+    - bearer: []
+  summary: Listar todos os usuários.
+  tags:
+    - Autenticação - Usuário

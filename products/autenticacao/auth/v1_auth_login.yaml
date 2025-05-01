@@ -1,0 +1,20 @@
+post:
+  operationId: AppController_login_v1
+  parameters: []
+  requestBody:
+    required: true
+    description: Dados necessários para realizar o login.
+    content:
+      application/json:
+        schema:
+          $ref: "../../../components/schemas.yaml#/UserLoginRequestDto"
+  responses:
+    "200":
+      description: Sucesso no login.
+      content:
+        application/json:
+          schema:
+            $ref: "../../../components/schemas.yaml#/UserLoginResponseDto"
+  summary: Realiza o Login do usuário com email e senha.
+  tags:
+    - Autenticação - Login

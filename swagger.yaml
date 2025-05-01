@@ -18,9 +18,37 @@ servers:
 
 # Seções
 paths:
-# Autenticação e Segurança
+  # Autenticação e Segurança - Auth
   /v1/auth/login:
-    $ref: "./products/auth/v1_auth_login.yaml"
+    $ref: "./products/autenticacao/auth/v1_auth_login.yaml"
+
+  /v1/auth/external-user/login:
+    $ref: "./products/autenticacao/auth/v1_auth_external_user_login.yaml"
+
+  /v1/profile:
+    $ref: "./products/autenticacao/auth/v1_auth_profile.yaml"
+
+  # Autenticação e Segurança - Users
+  /v1/users/create:
+    $ref: "./products/autenticacao/users/v1_users_create.yaml"
+
+  /v1/users/role:
+    $ref: "./products/autenticacao/users/v1_users_create.yaml"
+
+  /v1/users:
+    $ref: "./products/autenticacao/users/v1_users_get_all.yaml"
+
+  /v1/users/{id}:
+    $ref: "./products/autenticacao/users/v1_users_get_by_id.yaml"
+
+  /v1/users/update/{id}:
+    $ref: "./products/autenticacao/users/v1_users_update.yaml"
+
+  /v1/users/delete/{id}:
+    $ref: "./products/autenticacao/users/v1_users_delete.yaml"
+
+  /v1/external-users/create:
+    $ref: "./products/autenticacao/users/v1_external_users_create.yaml"
 
 # Vitrine
   /v1/vitrine:

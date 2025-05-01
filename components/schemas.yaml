@@ -262,3 +262,150 @@ ProjetoAtivo:
       type: string
       format: date-time
       example: "2024-04-03T10:00:00Z"
+      
+UserLoginRequestDto:
+  type: object
+  properties:
+    email:
+      type: string
+      description: E-mail do usuário para autenticação.
+      example: usuario@dominio.com
+    password:
+      type: string
+      description: Senha do usuário para autenticação.
+      example: senhaSuperSecreta123
+  required:
+    - email
+    - password
+
+UserLoginResponseDto:
+  type: object
+  properties:
+    access_token:
+      type: string
+      description: Token de acesso que será utilizado em outras rotas
+      example: >-
+        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlYWxAbGVhbC5jb20iLCJpZCI6MSwiaWF0IjoxNzQyNDA2NzE0LCJleHAiOjE3NDI0MTAzMTR9.YQq5lZqzHExWPluyxyyMQdRtMyWzBT3p03_ibzuJkQ0
+  required:
+    - access_token
+
+ExternalUserLoginRequestDto:
+  type: object
+  properties:
+    chave_acesso:
+      type: string
+      description: Chave de acesso do visitante.
+      example: "1234"
+  required:
+    - chave_acesso
+
+UserCreateRequestDto:
+  type: object
+  properties:
+    nome:
+      type: string
+      description: Nome do usuário
+      example: João Silva
+    email_institucional:
+      type: string
+      description: E-mail do usuário.
+      example: usuario@fatec.sp.gov.br
+    senha:
+      type: string
+      description: Senha.
+      example: eng.u1i231ca
+  required:
+    - nome
+    - email_institucional
+    - senha
+
+UserCreateResponseDto:
+  type: object
+  properties:
+    id:
+      type: number
+      description: ID do usuário recem criado.
+      example: 13
+    message:
+      type: string
+      description: Mensagem de sucesso...ou não.
+      example: Usuário criado com sucesso.
+  required:
+    - id
+    - message
+
+UserUpdateRequestDto:
+  type: object
+  properties:
+    nome:
+      type: string
+      description: Novo nome do usuário.
+      example: João Silva
+    email_institucional:
+      type: string
+      description: Novo e-mail do usuário.
+      example: novoemail@exemplo.com
+    senha:
+      type: string
+      description: Nova senha do usuário.
+      example: novasenha123
+    tipo_usuario:
+      type: string
+      description: Novo tipo de usuário.
+      enum:
+        - Admin
+        - Atendente
+      example: Admin
+    status_usuario:
+      type: string
+      description: Novo tipo de usuário.
+      enum:
+        - Pendente
+        - Ativo
+        - Desligado
+      example: Ativo
+
+UserUpdateResponseDto:
+  type: object
+  properties:
+    id:
+      type: number
+      description: ID do usuário atualizado.
+      example: 13
+    message:
+      type: string
+      description: Mensagem de sucesso.
+      example: Usuário atualizado com sucesso.
+  required:
+    - id
+    - message
+
+ExternalUserCreateRequestDto:
+  type: object
+  properties:
+    nome:
+      type: string
+      description: Nome do visitante
+      example: Davi da Silva
+    telefone:
+      type: string
+      description: Telefone do visitante
+      example: "1399675432321"
+  required:
+    - nome
+    - telefone
+
+ExternalUserCreateResponseDto:
+  type: object
+  properties:
+    chave_acesso:
+      type: string
+      description: Chave de acesso do visitante.
+      example: "1234"
+    message:
+      type: string
+      description: Mensagem de sucesso...ou não.
+      example: Cadastro do visitante realizado com sucesso.
+  required:
+    - chave_acesso
+    - message
