@@ -51,8 +51,11 @@ paths:
     $ref: "./products/autenticacao/users/v1_external_users_create.yaml"
 
 # Vitrine
-  /v1/vitrine:
-    $ref: "./products/vitrine/v1_vitrine.yaml"
+  /v1/vitrine/tv:
+    $ref: "./products/vitrine/v1_vitrine_tv.yaml"
+
+  /v1/vitrine/eventos-externos:
+    $ref: "./products/vitrine/v1_vitrine_eventos_externos.yaml"
 
 # CMS - Candidatos
   /api/Candidatos/Create:

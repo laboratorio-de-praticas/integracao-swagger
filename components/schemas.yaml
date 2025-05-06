@@ -409,3 +409,53 @@ ExternalUserCreateResponseDto:
   required:
     - chave_acesso
     - message
+
+Evento:
+  type: object
+  properties:
+    id_evento:
+      type: integer
+      example: 1
+    nome_evento:
+      type: string
+      example: Evento Teste
+    tipo_evento:
+      type: string
+      enum: [INTERNO, EXTERNO]  # Adjust based on TipoEvento enum
+      example: INTERNO
+    descricao_evento:
+      type: string
+      example: Descrição do evento
+    status_evento:
+      type: string
+      enum: [ATIVO, INATIVO]  # Adjust based on StatusEvento enum
+      example: ATIVO
+    curso_semestre:
+      type: string
+      example: DSM1
+    data_alteracao:
+      type: string
+      format: date-time
+      example: "2025-05-05T10:00:00Z"
+    data_criacao:
+      type: string
+      format: date-time
+      example: "2025-05-01T09:00:00Z"
+    data_inicio:
+      type: string
+      format: date-time
+      example: "2025-05-10T08:00:00Z"
+    data_fim:
+      type: string
+      format: date-time
+      example: "2025-05-10T17:00:00Z"
+    representantes:
+      type: array
+      items:
+        type: object  # Define detailed schema if you have one
+      example: []
+    projetosEventos:
+      type: array
+      items:
+        type: object  # Define detailed schema if you have one
+      example: []

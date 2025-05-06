@@ -1,0 +1,17 @@
+get:
+  operationId: VitrineController_findTv
+  parameters: []
+  responses:
+    "200":
+      description: "Lista de eventos"
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../../components/schemas.yaml#/Evento"
+  security:
+    - bearer: []
+  summary: "Renderiza a votação na TV"
+  tags:
+    - Vitrine
