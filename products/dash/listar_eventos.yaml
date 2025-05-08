@@ -1,0 +1,14 @@
+get:
+  summary: Listar eventos
+  tags:
+    - Dash e Reports
+  description: |
+    Retorna uma lista de todos os eventos (ativos ou não), útil para visualização geral ou filtros adicionais no frontend.
+  responses:
+    "200":
+      description: Dados dos eventos recuperados com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "../../components/schemas.yaml#/EventoInternoResumo"

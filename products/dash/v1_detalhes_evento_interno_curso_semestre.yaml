@@ -1,0 +1,23 @@
+get:
+  summary: Recupera dados detalhados de um evento interno ativo para um curso/semestre específico
+  tags:
+    - Dash e Reports
+  description: |
+    Retorna dados detalhados de um evento interno ativo para um curso/semestre específico incluindo:
+    - informações dos candidatos
+    - log de votos para exibição detalhada no dashboard.
+  parameters:
+    - in: query
+      name: curso/semestre
+      schema:
+        type: string
+      required: true
+      description: Sigla do semestre (ex. DSM1)
+  responses:
+    "200":
+      description: Dados do evento interno do semestre recuperados com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "../../components/schemas.yaml#/DashboardInternoAtivoSemestreResponse"

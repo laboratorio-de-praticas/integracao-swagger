@@ -24,19 +24,239 @@ PaginaCMS:
       type: string
       example: "<p>Bem-vindo ao site!</p>"
 
-Dashboard:
+VotoPorDia:
   type: object
   properties:
-    id:
+    data:
       type: string
-      example: "dash01"
-    titulo:
+      format: date
+      example: "21/04/2025"
+    qtd_votos:
+      type: integer
+      example: 12
+
+CandidatoResumo:
+  type: object
+  properties:
+    id_representante:
+      type: integer
+    descricao_campanha:
       type: string
-      example: "Dashboard de Acessos"
-    criado_em:
+    representante_situacao:
+      type: string
+      example: "Ativo"
+    nome:
+      type: string
+    curso_semestre:
+      type: string
+    foto_url:
+      type: string
+      nullable: true
+    qtd_votos_recebidos:
+      type: integer
+
+LogVoto:
+  type: object
+  properties:
+    id_voto:
+      type: integer
+    data_hora_voto:
+      type: string
+      example: "21/04/2025 21:19:08"
+    id_aluno_votante:
+      type: integer
+    nome_votante:
+      type: string
+    curso_semestre_votante:
+      type: string
+    foto_url_votante:
+      type: string
+      nullable: true
+    id_aluno:
+      type: integer
+
+
+LogVotoIDevento:
+  type: object
+  properties:
+    id_voto:
+      type: integer
+      example: 1
+    data_hora_voto:
       type: string
       format: date-time
-      example: "2025-01-01T12:00:00Z"
+      example: "21/04/2025 21:19:08"
+    id_aluno_votante:
+      type: integer
+      example: 1
+    nome_votante:
+      type: string
+      example: "Usuario 1"
+    curso_semestre_votante:
+      type: string
+      example: "DSM1"
+    foto_url_votante:
+      type: string
+      nullable: true
+      example: null
+    id_aluno_representante:
+      type: integer
+      example: 15
+    nome_representante:
+      type: string
+      example: "Usuario 15"
+    curso_semestre_representante:
+      type: string
+      example: "DSM1"
+    id_evento:
+      type: integer
+      example: 1
+    nome_evento:
+      type: string
+      example: "Representante de Classe"
+
+
+DashboardInternoAtivoSemestreResponse:
+  type: object
+  properties:
+    id_evento:
+      type: integer
+    tipo_evento:
+      type: string
+    nome_evento:
+      type: string
+    descricao_evento:
+      type: string
+    status_evento:
+      type: string
+    curso_semestre:
+      type: string
+    ano_semestre:
+      type: string
+    data_inicio:
+      type: string
+      format: date
+      example: "01/04/2025"
+    data_fim:
+      type: string
+      format: date
+      example: "30/04/2025"
+    total_alunos:
+      type: string
+      example: "33"
+    votos_validos:
+      type: string
+    votos_pendentes:
+      type: string
+    candidatos_ativos:
+      type: string
+    votos_por_dia:
+      type: array
+      items:
+        $ref: "#/VotoPorDia"
+    candidatos:
+      type: array
+      items:
+        $ref: "#/CandidatoResumo"
+    log_votos:
+      type: array
+      items:
+        $ref: "#/LogVoto"
+
+
+EventoInternoResumo:
+  type: object
+  properties:
+    evento_id_evento:
+      type: integer
+      example: 1
+    evento_tipo_evento:
+      type: string
+      example: "Interno"
+    evento_nome_evento:
+      type: string
+      example: "Representante de Classe"
+    evento_descricao_evento:
+      type: string
+      example: "Eleição para representante da turma DSM1"
+    evento_status_evento:
+      type: string
+      example: "Ativo"
+    evento_curso_semestre:
+      type: string
+      example: "DSM1"
+    evento_ano_semestre:
+      type: string
+      example: "2025/1"
+    data_inicio:
+      type: string
+      format: date
+      example: "01/04/2025"
+    data_fim:
+      type: string
+      format: date
+      example: "30/04/2025"
+    data_criacao:
+      type: string
+      format: date
+      example: "18/04/2025"
+    data_alteracao:
+      type: string
+      format: date
+      example: "18/04/2025"
+
+
+
+
+DashboardInternoAtivoResponse:
+  type: object
+  properties:
+    id_evento:
+      type: integer
+    tipo_evento:
+      type: string
+      example: Interno
+    nome_evento:
+      type: string
+    descricao_evento:
+      type: string
+    status_evento:
+      type: string
+      example: Ativo
+    curso_semestre:
+      type: string
+    ano_semestre:
+      type: string
+    data_inicio:
+      type: string
+      format: date-time
+    data_fim:
+      type: string
+      format: date-time
+    total_alunos:
+      type: string
+      example: "33"
+    votos_validos:
+      type: string
+      example: "12"
+    votos_pendentes:
+      type: string
+      example: "21"
+    candidatos_ativos:
+      type: string
+      example: "3"
+    votos_por_dia:
+      type: array
+      items:
+        type: object
+        properties:
+          data:
+            type: string
+            format: date
+            example: "2025-04-21"
+          qtd_votos:
+            type: integer
+            example: 12
 
 Eleicao:
   type: object

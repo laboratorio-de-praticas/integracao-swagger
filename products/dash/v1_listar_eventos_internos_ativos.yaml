@@ -1,0 +1,17 @@
+get:
+  summary: Recupera dados de todos os eventos internos ativos
+  tags:
+    - Dash e Reports
+  description: |
+        Recupera dados consolidados dos eventos internos ativos. Essa rota é usada para preencher o dashboard administrativo com dados como:
+        - Informações do evento
+        - Totais de alunos, votos válidos, pendentes e candidatos
+        - Votos por dia
+  responses:
+    "200":
+      description: Dados dos eventos internos ativos recuperados com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "../../components/schemas.yaml#/DashboardInternoAtivoResponse"

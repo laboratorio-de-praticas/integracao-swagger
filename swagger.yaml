@@ -97,8 +97,26 @@ paths:
     $ref: "./products/cms/projetos/api_projetos_disable.yaml"
     
 # Dash e Reports
-  /v1/dashboards:
-    $ref: "./products/dash/v1_dashboards.yaml"
+  /v1/dashboard/interno/ativo:
+    $ref: "./products/dash/v1_listar_eventos_internos_ativos.yaml"
+
+  /v1/dashboard/interno/ativo/curso/:curso_semestre:
+    $ref: "./products/dash/v1_detalhes_evento_interno_curso_semestre.yaml"
+
+  /v1/votos/interno/logs/idevento/:id_evento:
+    $ref: "./products/dash/v1_logs_votos_id_evento.yaml"
+
+  /eventos:
+    $ref: "./products/dash/listar_eventos.yaml"
+
+  /eventos/status/:statusEvento:
+    $ref: "./products/dash/eventos_status.yaml"
+
+  /eventos/tipo/:tipoEvento:
+    $ref: "./products/dash/eventos_tipo.yaml"
+
+  /eventos/status/:statusEvento/tipo/:tipoEvento:
+    $ref: "./products/dash/eventos_status_tipo.yaml"
 
 # Votação
   /v1/votacao/eleicoes:

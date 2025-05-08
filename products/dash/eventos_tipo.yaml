@@ -1,0 +1,21 @@
+get:
+  summary: Filtra eventos por tipo
+  tags:
+    - Dash e Reports
+  description: |
+   Filtra eventos por tipo, útil para segmentar eventos por categoria.
+  parameters:
+    - in: query
+      name: tipoEvento
+      schema:
+        type: string
+      required: true
+      description: Tipo do evento (ex. "Interno")
+  responses:
+    "200":
+      description: Dados do evento recuperados com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "../../components/schemas.yaml#/EventoInternoResumo"

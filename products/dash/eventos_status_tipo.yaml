@@ -1,0 +1,27 @@
+get:
+  summary: Filtra eventos por tipo e status
+  tags:
+    - Dash e Reports
+  description: |
+   Filtra eventos combinando status e tipo, para consultas mais específicas.
+  parameters:
+    - in: query
+      name: statusEvento
+      schema:
+        type: string
+      required: true
+      description: Status do evento (ex. "Ativo")
+    - in: query
+      name: tipoEvento
+      schema:
+        type: string
+      required: true
+      description: Tipo do evento (ex. "Interno")
+  responses:
+    "200":
+      description: Dados do evento recuperados com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "../../components/schemas.yaml#/EventoInternoResumo"

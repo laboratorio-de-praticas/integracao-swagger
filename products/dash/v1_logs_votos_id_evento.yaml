@@ -1,0 +1,21 @@
+get:
+  summary: Recuperar log de votos por ID do evento 
+  tags:
+    - Dash e Reports
+  description: |
+    Recupera o log de votos de um evento interno específico, identificado pelo ID do evento, para auditoria ou análise detalhada.
+  parameters:
+    - in: query
+      name: id_evento
+      schema:
+        type: integer
+      required: true
+      description: ID do evento
+  responses:
+    "200":
+      description: Log de votos do evento recuperado com sucesso
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "../../components/schemas.yaml#/LogVotoIDevento"
