@@ -1,0 +1,22 @@
+get:
+  operationId: PublicaController_detalhesProjeto
+  summary: 'Obter detalhes de um projeto'
+  tags:
+    - 'Votação Pública'
+  parameters:
+    - name: id_projeto
+      in: path
+      required: true
+      description: 'ID do projeto'
+      schema:
+        type: number
+        example: 1
+  responses:
+    '200':
+      description: 'Detalhes do projeto retornados com sucesso.'
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas.yaml#/ProjetoAtivo'
+    '400':
+      description: 'O ID do projeto é obrigatório.'

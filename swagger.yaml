@@ -118,16 +118,28 @@ paths:
   /eventos/status/:statusEvento/tipo/:tipoEvento:
     $ref: "./products/dash/eventos_status_tipo.yaml"
 
-# Votação
-  /v1/votacao/eleicoes:
-    $ref: "./products/votacao/v1_votacao_eleicoes.yaml"
+# Votação Pública
+  /v1/votacao/publica/confirmacao/visitante:
+    $ref: "./products/votacao/publica/v1_publica_visitante_votar.yaml"
+  
+  /v1/votacao/publica/confirmacao/visitante/{idVisitante}/{idProjeto}/{idEvento}:
+    $ref: "./products/votacao/publica/v1_publica_visitante_verificar.yaml"
+  
+  /v1/votacao/publica/confirmacao/detalhes/{id_projeto}:
+    $ref: "./products/votacao/publica/v1_publica_projeto_detalhes.yaml"
+  
+  /v1/votacao/publica/confirmacao/avaliador/classificacao:
+    $ref: "./products/votacao/publica/v1_publica_avaliador_classificar.yaml"
+  
+  /v1/votacao/publica/confirmacao/avaliador/{idAvaliador}/{idProjeto}/{idEvento}:
+    $ref: "./products/votacao/publica/v1_publica_avaliador_verificar.yaml"
 
-# Exemplos de Schemas
-components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-  schemas:
-    $ref: './components/schemas.yaml'
+# Votação Interna
+  /v1/votacao/interna/confirmacao:
+    $ref: "./products/votacao/interna/v1_interna_aluno_votar.yaml"
+  
+  /v1/votacao/interna/confirmacao/verificacao/{idAluno}/{idEvento}:
+    $ref: "./products/votacao/interna/v1_interna_aluno_verificar.yaml"
+  
+  /v1/votacao/interna/representante/{id_representante}:
+    $ref: "./products/votacao/interna/v1_interna_representante_detalhes.yaml"

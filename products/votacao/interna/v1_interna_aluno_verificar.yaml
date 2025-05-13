@@ -1,0 +1,25 @@
+get:
+  operationId: InternaController_verificarVotoPorParams
+  summary: 'Verificar se o aluno já votou no evento (via URL)'
+  tags:
+    - 'Votação Interna'
+  parameters:
+    - name: idAluno
+      in: path
+      required: true
+      description: 'ID do aluno'
+      schema:
+        type: number
+        example: 123
+    - name: idEvento
+      in: path
+      required: true
+      description: 'ID do evento'
+      schema:
+        type: number
+        example: 456
+  responses:
+    '200':
+      description: 'Status do voto retornado com sucesso.'
+    '400':
+      description: 'Parâmetros obrigatórios ausentes ou inválidos.'

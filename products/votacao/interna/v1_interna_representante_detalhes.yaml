@@ -1,0 +1,23 @@
+get:
+  operationId: InternaController_detalhesRepresentante
+  summary: 'Obter detalhes de um representante'
+  description: 'Retorna informações básicas como nome, foto, curso e situação do representante'
+  tags:
+    - 'Votação Interna'
+  parameters:
+    - name: id_representante
+      in: path
+      required: true
+      description: 'ID numérico do representante'
+      schema:
+        type: number
+        example: 1
+  responses:
+    '200':
+      description: 'Detalhes do representante retornados com sucesso.'
+      content:
+        application/json:
+          schema:
+            $ref: '../../../components/schemas.yaml#/CandidatoResumo'
+    '400':
+      description: 'O ID do representante é obrigatório.'

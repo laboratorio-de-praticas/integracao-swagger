@@ -1,0 +1,17 @@
+post:
+  operationId: InternaController_votar
+  summary: 'Registrar voto do aluno em um representante'
+  tags:
+    - 'Votação Interna'
+  requestBody:
+    description: 'Dados necessários para registrar um voto'
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas.yaml#/CriarVotoDto'
+  responses:
+    '201':
+      description: 'Voto registrado com sucesso.'
+    '400':
+      description: 'Erro de validação nos dados enviados.'

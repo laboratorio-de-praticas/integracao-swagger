@@ -679,3 +679,33 @@ Evento:
       items:
         type: object  # Define detailed schema if you have one
       example: []
+
+CriarVotoDto:
+  type: object
+  properties:
+    idAluno:
+      type: number
+      example: 1
+    idRepresentante:
+      type: number
+      example: 2
+    idEvento:
+      type: number
+      example: 3
+  required:
+    - idAluno
+    - idRepresentante
+    - idEvento
+
+VerificarVotoDto:
+  type: object
+  properties:
+    idAluno:
+      type: number
+      example: 1
+    idEvento:
+      type: number
+      example: 3
+  required:
+    - idAluno
+    - idEvento
